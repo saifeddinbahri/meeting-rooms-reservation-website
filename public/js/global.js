@@ -17,9 +17,9 @@ function submitForm(event, inputIds, url, redirectUrl ) {
           body: JSON.stringify(formData)
       }).then(res => {
         console.log(res.status)
-        if(res.status === 200 ){
+       /* if(res.status === 200 ){
           window.location.href = redirectUrl
-        }
+        }*/
       })
       .catch(error => console.error('Error:', error));
   }
