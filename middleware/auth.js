@@ -1,7 +1,7 @@
 
 const jwt = require('jsonwebtoken');
 
-const ignore = ['/auth/sign-in','/']
+const ignore = ['/auth/sign-in','/','/auth/sign-up']
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization']

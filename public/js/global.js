@@ -1,3 +1,12 @@
+const jwtCookie = document.cookie.split('; ').find(cookie => cookie.startsWith('jwt='));
+const jwt = jwtCookie ? jwtCookie.split('=')[1] : null;
+
+const headers = jwt ? {
+  'Authorization': `Bearer ${jwt}`,
+  'Content-Type': 'application/json'
+} : {
+  'Content-Type': 'application/json'
+}
 
 function submitForm(event, inputIds, url, redirectUrl ) {
 
@@ -11,9 +20,7 @@ function submitForm(event, inputIds, url, redirectUrl ) {
 
       fetch(url, {
           method: 'POST',
-          headers: {
-              'Content-Type': 'application/json'
-          },
+          headers: headers,
           body: JSON.stringify(formData)
       }).then(res => {
         console.log(res.status)
