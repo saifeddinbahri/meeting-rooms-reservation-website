@@ -18,9 +18,7 @@ app.use(cookieParser())
 //connect to databse
 connectDB()
 
-// middleware
-const authGuard = require('./middleware/auth')
-app.use(authGuard)
+
 
 // importing routes
 const loginRouter = require('./routes/auth')
