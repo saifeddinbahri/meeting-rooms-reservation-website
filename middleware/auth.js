@@ -1,7 +1,7 @@
 
 const jwt = require('jsonwebtoken');
 
-const ignore = ['/auth/sign-in','/','/auth/sign-up']
+const ignore = ['/auth/sign-in','/','/auth/sign-up']  
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization']
@@ -10,6 +10,7 @@ function authenticateToken(req, res, next) {
      if(ignore.includes(req.path)){
         next()
      }
+     
      else{
         if (token == null) return res.sendStatus(401)
 

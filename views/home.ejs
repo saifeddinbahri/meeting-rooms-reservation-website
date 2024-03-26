@@ -8,34 +8,33 @@
     <title>homepage</title>
 </head>
 <body class=" lg:px-12 px-9 bg-[#f7f7f8]">
-    <div class="flex flex-col items-center">
-        <% for (var i = 0; i<10; i++) { %>
-            <div class=" flex flex-row w-[70%] h-[200px] my-5 shadow-lg border-1 border-slate-700">
-                <div class="bg-yellow-500 w-[45%] h-full"> </div>
-                <div class="flex flex-col w-full h-full px-2 bg-white">
-                    <div class="text-xl font-semibold h-[30%] truncate ">
-                        Title
-                    </div>
-                    <div class=" text-ellipsis overflow-hidden py-2 h-auto">
-                        
-Subscribe for weekly updates
-Enter your email 
-
-
-I agree to receive marketing emails from BOWWE*
-Did you know that it only takes 17 milliseconds for a user to evaluate your website subconsciously? So, this moment must be noticed. Stunning website background is one of the visual elements that immediately catches the eye of visitors and encourages them to stay longer on the site. At the same time, many people need to pay more attention to its potential, forget about it or make it boring. Do you want your website's background to catch users' attention? Be sure to learn these 14 tips for creating the best website background!
-
-What is a website background? 
-As you can easily guess, the background is the entire visual space on which the page content is displayed. The background is the basis of any website design. It is something that accompanies visitors throughout their stay on your website. Therefore, a well-chosen background gives the website character, affects its positive reception, and is an essential design element. 
-
-What are the types of backgrounds on the website?
-Before you move on to choosing a background for your website, it's worth getting acquainted with the basics first. Here are 3 types of backgrounds you can use in your website creation!
-
-Body background - the main background of the site
-                    </div>
-                </div>
-            </div>          
-        <% } %>
+    <div class=" flex flex-row items-center justify-end bg-white fixed inset-x-0 top-0 h-[10%] shadow-lg border-b-2 border-slate-700/18 gap-x-5 lg:px-12 px-12">
+        <img src="/images/logo.png" width="110" class="mr-auto h-full" />
+        <a class="text-lg font-medium text-slate-600 p-2 hover:bg-slate-700/10 hover:rounded-lg" href="#">
+            My reservations
+        </a>
+        <a class="text-lg font-medium text-slate-600 bg-slate-700/10 p-2 rounded-lg" href="#">
+            Meeting rooms
+        </a>
+        <a class="text-lg font-medium text-slate-600 border-l-2 border-slate-700/20 pl-[1.25rem] hover:text-red-600 " href="#">
+            Logout
+        </a>
     </div>
+        <div class="flex flex-col items-center h-full mt-[5%]">
+            <% for (var i = 0; i<10; i++) { %>
+                <div class=" flex flex-row w-full h-[200px] my-5 shadow-lg border-1 border-slate-700">
+                    <div class="bg-yellow-500 w-[45%] h-full"> </div>
+                    <div class="flex flex-col w-full h-full px-2 bg-white">
+                        <div class="text-xl font-semibold h-[15%] truncate ">
+                            Title
+                        </div>
+                        <div class="text-ellipsis overflow-hidden h-auto">
+                            Capacité
+                        </div>
+                    </div>
+                </div>          
+            <% } %>
+        </div>
+   
 </body>
 </html>
