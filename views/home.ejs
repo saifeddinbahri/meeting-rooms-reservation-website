@@ -22,14 +22,59 @@
     </div>
         <div class="flex flex-col items-center h-full mt-[5%]">
             <% for (var i = 0; i<10; i++) { %>
-                <div class=" flex flex-row w-full h-[200px] my-5 shadow-lg border-1 border-slate-700">
+                <div class=" flex flex-row w-full h-[400px] min-w-[1024px] my-5 shadow-lg border-1 border-slate-700">
                     <div class="bg-yellow-500 w-[45%] h-full"> </div>
                     <div class="flex flex-col w-full h-full px-2 bg-white">
                         <div class="text-xl font-semibold h-[15%] truncate ">
                             Title
                         </div>
-                        <div class="text-ellipsis overflow-hidden h-auto">
-                            Capacité
+                        <div class="flex flex-col">
+                            <div class="flex flex-row">
+                                <div class="text-lg pr-2">
+                                    Capacity: 100
+                                </div>
+                                <div class="text-lg">
+                                    Address: House number 5, City
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-3 grid-rows-2 w-full  gap-y-5 gap-x-2 pt-5 self-center">
+                                <div class="flex flex-row gap-x-2"> 
+                                    <img src="/images/mic.png" height="30" width="30"/> 
+                                    <div class="text-lg truncate">
+                                        Microphone: 2
+                                    </div>
+                                </div>
+                                <div class="flex flex-row gap-x-2"> 
+                                    <img src="/images/projecteur.png" height="30" width="30"/> 
+                                    <div class="text-lg truncate">
+                                        video projector: 1
+                                    </div>
+                                </div>
+                                <div class="flex flex-row gap-x-2"> 
+                                    <img src="/images/bigscreen.png" height="30" width="30"/> 
+                                    <div class="text-lg truncate">
+                                        Big screen: 1
+                                    </div>
+                                </div>
+                                <div class="flex flex-row gap-x-2"> 
+                                    <img src="/images/screen.png" height="30" width="30"/> 
+                                    <div class="text-lg truncate">
+                                        Video conference screen: 3
+                                    </div>
+                                </div>
+                                <div class="flex flex-row gap-x-2"> 
+                                    <img src="/images/table.png" height="30" width="30"/> 
+                                    <div class="text-lg truncate">
+                                        Tables: 10
+                                    </div>
+                                </div>
+                                <div class="flex flex-row gap-x-2"> 
+                                    <img src="/images/chair.png" height="30" width="30"/> 
+                                    <div class="text-lg truncate">
+                                        Chairs: 40
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>          
