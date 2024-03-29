@@ -8,6 +8,9 @@ const ReservedBy = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
+    fullname:String,
+    phone: Number,
+    email:String,
     date: Date,
     start: Number,
     end: Number

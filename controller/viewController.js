@@ -7,6 +7,17 @@ exports.inscription = (req, res) => {
     res.render('signUp')
 }
 
-exports.home = (req, res) => {
-    res.render('home')    
+exports.rooms = (req, res) => {
+    res.render('rooms')    
+}
+
+exports.book = (req, res) => {
+    res.render('book')
+}
+
+exports.reservations = (req, res) => {
+    res.render('reservations')
+}
+exports.calendar = (req, res) => {
+    res.render('calendar')
 }

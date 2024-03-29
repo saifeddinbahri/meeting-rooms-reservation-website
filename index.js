@@ -27,12 +27,13 @@ const loginRouter = require('./routes/auth')
 // using Routes
 app.use('/auth', loginRouter)
 
-
-
 // views
 app.get('/', viewController.login)
-app.get('/home', viewController.home)
+app.get('/rooms', viewController.rooms)
 app.get('/sign-up', viewController.inscription)
+app.get('/book', viewController.book)
+app.get('/my-reservations', viewController.reservations)
+app.get('/calendar', viewController.calendar)
 
 app.listen(port, () => {
     console.log(`Listenning on port ${port}`)
