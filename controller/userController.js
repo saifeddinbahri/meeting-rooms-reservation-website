@@ -17,7 +17,7 @@ exports.authenticate = async (req, res) => {
          if(isValid) {
             const token = generateAccessToken(user._id)
             res.cookie('__md_e', token, {httpOnly: true, maxAge: cookieAge})
-            return res.status(200).render('home')
+            return res.json({redirectTo:'/rooms'})
          }
 
          return res.status(401).send('password incorrect')

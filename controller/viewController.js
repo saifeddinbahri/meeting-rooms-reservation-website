@@ -18,6 +18,7 @@ exports.book = (req, res) => {
 exports.reservations = (req, res) => {
     res.render('reservations')
 }
+
 exports.calendar = (req, res) => {
     res.render('calendar')
 }

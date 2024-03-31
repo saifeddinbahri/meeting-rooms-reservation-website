@@ -20,6 +20,7 @@ const Equipments = new Schema({
     microphone: Number,
     projecter: Number,
     screen: Number,
+    bigscreen: Number,
     tables: Number,
     chairs: Number
 })
@@ -27,9 +28,12 @@ const Equipments = new Schema({
 const RoomSchema = new Schema({
     label: String,
     address: String,
+    image: String,
     capacity: Number,
     equipments: Equipments,
     reservedBy: [ReservedBy]
 })
+
+
 
 module.exports = mongoose.model('Room', RoomSchema)

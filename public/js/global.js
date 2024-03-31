@@ -22,11 +22,12 @@ function submitForm(event, inputIds, url, redirectUrl ) {
           method: 'POST',
           headers: headers,
           body: JSON.stringify(formData)
-      }).then(res => {
-        console.log(res.status)
-       /* if(res.status === 200 ){
-          window.location.href = redirectUrl
-        }*/
+      }).then(async res => {
+        data = await res.json()
+        console.log(data)
+        if(data.redirectTo ){
+          window.location.href = data.redirectTo
+        }
       })
       .catch(error => console.error('Error:', error));
   }
