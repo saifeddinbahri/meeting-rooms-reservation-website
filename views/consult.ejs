@@ -76,8 +76,8 @@
                                 <button class="bg-slate-900 text-lg text-white rounded-lg hover:bg-slate-700 p-2 w-32">
                                     Calendar
                                 </button>
-                                <button class="bg-slate-900 text-lg text-white rounded-lg hover:bg-slate-700 p-2 w-32">
-                                    Book
+                                <button onclick="modify('<%= item._id %>')" class="bg-slate-900 text-lg text-white rounded-lg hover:bg-slate-700 p-2 w-32" >
+                                    Modify
                                 </button>
                             </div>
                         </div>
@@ -85,5 +85,10 @@
                 </div>          
             <% }) %>
         </div>
+        <script>
+            function modify(id) {
+                window.location.href =  `/modify-room/${id}`
+            }
+        </script>
 </body>
 </html>

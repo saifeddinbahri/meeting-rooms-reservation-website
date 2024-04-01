@@ -21,71 +21,80 @@
         </a>
     </div>
         <div class="flex flex-col items-center h-full mt-[5%]">
-            <% for (var i = 0; i<10; i++) { %>
+            <% data.forEach( (item) => { %>
                 <div class=" flex flex-row w-full h-[320px] min-w-[1024px] my-5 shadow-lg border-1 border-slate-700">
-                    <div class="bg-yellow-500 w-[45%] h-full"> </div>
+                    <div class="bg-yellow-500 w-[45%] h-full">
+                        <img src="/room-image/<%= item.image %>" class="w-full h-full"/> </div>
                     <div class="flex flex-col w-full h-full px-2 bg-white">
                         <div class="text-xl font-semibold h-[15%] truncate ">
-                            Title
+                            <%= item.label %>
                         </div>
                         <div class="flex flex-col gap-y-5">
                             <div class="grid grid-cols-3 grid-rows-2 w-full  gap-y-5 gap-x-2 pt-5 ">
                                 <div class="flex flex-row gap-x-2"> 
                                     <img src="/images/mic.png" height="30" width="30"/> 
                                     <div class="text-lg truncate">
-                                        Microphone: 2
+                                        Microphone: <%= item.equipments.microphone %>
                                     </div>
                                 </div>
                                 <div class="flex flex-row gap-x-2"> 
                                     <img src="/images/projecteur.png" height="30" width="30"/> 
                                     <div class="text-lg truncate">
-                                        video projector: 1
+                                        video projector: <%= item.equipments.projecter %>
                                     </div>
                                 </div>
                                 <div class="flex flex-row gap-x-2"> 
                                     <img src="/images/bigscreen.png" height="30" width="30"/> 
                                     <div class="text-lg truncate">
-                                        Big screen: 1
+                                        Big screen: <%= item.equipments.bigscreen %>
                                     </div>
                                 </div>
                                 <div class="flex flex-row gap-x-2"> 
                                     <img src="/images/screen.png" height="30" width="30"/> 
                                     <div class="text-lg truncate">
-                                        Video conference screen: 3
+                                        Video conference screen: <%= item.equipments.screen %>
                                     </div>
                                 </div>
                                 <div class="flex flex-row gap-x-2"> 
                                     <img src="/images/table.png" height="30" width="30"/> 
                                     <div class="text-lg truncate">
-                                        Tables: 10
+                                        Tables: <%= item.equipments.tables %>
                                     </div>
                                 </div>
                                 <div class="flex flex-row gap-x-2"> 
                                     <img src="/images/chair.png" height="30" width="30"/> 
                                     <div class="text-lg truncate">
-                                        Chairs: 40
+                                        Chairs: <%= item.equipments.chairs %>
                                     </div>
                                 </div>
                             </div>
                             <div class="text-lg pr-2">
-                                Capacity: 100
+                                Capacity: <%= item.capacity %>
                             </div>
                             <div class="text-lg">
-                                Address: House number 5, City
+                                Address: <%= item.address %>
                             </div>
                             <div class="flex flex-row justify-end gap-x-2">
                                 <button class="bg-slate-900 text-lg text-white rounded-lg hover:bg-slate-700 p-2 w-32">
                                     Calendar
                                 </button>
-                                <button class="bg-slate-900 text-lg text-white rounded-lg hover:bg-slate-700 p-2 w-32">
+                                <button onclick="book('<%= item._id %>')" class="bg-slate-900 text-lg text-white rounded-lg hover:bg-slate-700 p-2 w-32" >
                                     Book
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>          
-            <% } %>
+            <% }) %>
         </div>
-   
+   <script>
+    function book(id) {
+        window.location.href = `/book/${id}`
+    }
+
+    function calendar(id) {window
+        window.location.href = `/calendar/${id}`
+    }
+   </script>
 </body>
 </html>

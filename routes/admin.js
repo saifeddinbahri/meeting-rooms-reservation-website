@@ -21,6 +21,7 @@ const upload = multer({ storage: storage })
 const roomController = require('../controller/roomController')
 
 router.post('/add-room', upload.single('image'), roomController.addRoom)
-
+router.put('/update-room/:id', upload.single('image'), roomController.updateRoom)
+router.delete('/delete-room/:id', roomController.deleteRoom)
 
 module.exports = router

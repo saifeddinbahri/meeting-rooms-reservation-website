@@ -8,7 +8,7 @@ exports.inscription = (req, res) => {
 }
 
 exports.rooms = (req, res) => {
-    res.render('rooms')    
+    res.render('rooms', { data: req.data })    
 }
 
 exports.book = (req, res) => {

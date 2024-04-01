@@ -32,15 +32,16 @@ app.use('/admin',adminRouter)
 
 // views
 app.get('/', viewController.login)
-app.get('/rooms', viewController.rooms)
+app.get('/rooms', roomController.consult, viewController.rooms)
 app.get('/sign-up', viewController.inscription)
-app.get('/book', viewController.book)
+app.get('/book/:id', viewController.book)
 app.get('/my-reservations', viewController.reservations)
-app.get('/calendar', viewController.calendar)
+app.get('/calendar/:id', viewController.calendar)
 
 // Admin views
 app.get('/add-room',adminViewController.addRoom)
 app.get('/consult-rooms', roomController.consult, adminViewController.consultRoom)
+app.get('/modify-room/:id', roomController.findRoom, adminViewController.modifyRoom)
 
 
 
