@@ -8,7 +8,7 @@ const headers = jwt ? {
   'Content-Type': 'application/json'
 }
 
-function submitForm(event, inputIds, url, redirectUrl ) {
+function submitForm(event, inputIds, url) {
 
     event.preventDefault()
 

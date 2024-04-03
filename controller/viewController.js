@@ -4,7 +4,7 @@ exports.login = (req, res) => {
 }
 
 exports.inscription = (req, res) => {
-    res.render('signUp')
+    res.render('register')
 }
 
 exports.rooms = (req, res) => {
@@ -12,11 +12,12 @@ exports.rooms = (req, res) => {
 }
 
 exports.book = (req, res) => {
-    res.render('book')
+    const { id } = req.params
+    res.render('book', { data: id })
 }
 
 exports.reservations = (req, res) => {
-    res.render('reservations')
+    res.render('reservations', {data: req.resRooms})
 }
 
 exports.calendar = (req, res) => {

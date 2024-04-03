@@ -38,12 +38,13 @@ exports.inscription = async(req, res) => {
         const user = await User.findOne({ email })
         
         if(user) {
+            console.log('user exist')
             return res.status(409).send("exist")
         } 
         
         const hashedPassword = await hashPassword(password)
         await User.create({ email, password:hashedPassword, firstname, lastname })
-        return res.render('/')
+        return res.json({redirectTo:'/'})
         
     } catch(error) {
         console.log(error)

@@ -32,30 +32,30 @@
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-            <% for(var i = 0; i<10; i++ ) { %>
+            <% data.forEach((room) => {  %>
             <tr class="hover:bg-gray-50">
               <td class="px-6 py-4">
-                Room 1
+                <%= room.label %>
               </td>
               <td class="px-6 py-4">
                 <span
                   class="rounded-full bg-green-50 px-2 py-1 text-sm font-semibold text-green-600"
                 >
-                  15-10-2023
+                  <%= room.reservedBy.date %>
                 </span>
               </td>
               <td class="px-6 py-4">
                 <span
                   class="rounded-full bg-green-50 px-2 py-1 text-sm font-semibold text-green-600"
                 >
-                  9
+                <%= room.reservedBy.start %>
                 </span>
               </td>
               <td class="px-6 py-4 ">
                 <span
                   class="rounded-full text-sm bg-green-50 px-2 py-1 font-semibold text-green-600"
                 >
-                  10
+                <%= room.reservedBy.end %>
                 </span>
               </td>
               <td class="px-6 py-4">
@@ -97,7 +97,7 @@
                 </div>
               </td>
             </tr>
-            <% } %>
+            <% }) %>
           </tbody>
         </table>
       </div>

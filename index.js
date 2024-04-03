@@ -20,23 +20,26 @@ app.use(cookieParser())
 //connect to databse
 connectDB()
 
-
+// middleware
+const authMiddleware = require('./middleware/auth')
 
 // importing routes
 const loginRouter = require('./routes/auth')
 const adminRouter = require('./routes/admin')
+const userRouter = require('./routes/user')
 
 // using Routes
 app.use('/auth', loginRouter)
 app.use('/admin',adminRouter)
+app.use('/user', authMiddleware, userRouter)
 
 // views
 app.get('/', viewController.login)
-app.get('/rooms', roomController.consult, viewController.rooms)
+app.get('/rooms', authMiddleware, roomController.consult, viewController.rooms)
 app.get('/sign-up', viewController.inscription)
-app.get('/book/:id', viewController.book)
-app.get('/my-reservations', viewController.reservations)
-app.get('/calendar/:id', viewController.calendar)
+app.get('/book/:id', authMiddleware, viewController.book)
+app.get('/my-reservations', authMiddleware, roomController.findReservations, viewController.reservations)
+app.get('/calendar/:id', authMiddleware, viewController.calendar)
 
 // Admin views
 app.get('/add-room',adminViewController.addRoom)

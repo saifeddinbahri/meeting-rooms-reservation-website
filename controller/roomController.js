@@ -50,7 +50,6 @@ exports.updateRoom = async (req, res) => {
 exports.consult = async (req, res, next) => {
     try {
         const data = await roomSchema.find()
-        console.log(data)
         req.data = data
         next()
     }catch(e){
@@ -77,4 +76,46 @@ exports.findRoom = async (req, res, next) => {
         } catch(e) {
             res.send('failed to find room')
         }
+}
+
+exports.findReservations = async (req, res, next) => {
+    const { Types: { ObjectId } } = require('mongoose');
+    const userId = req.uid
+    console.log(userId)
+    const rooms = await roomSchema.aggregate([
+        {
+            $match: { 'reservedBy.user': new ObjectId(userId) } 
+        },
+        {
+            $addFields: {
+                reservedBy: {
+                    $filter: {
+                        input: '$reservedBy',
+                        as: 'reservation',
+                        cond: { $eq: ['$$reservation.user', new ObjectId(userId)] } 
+                    }
+                }
+            },
+            
+        },
+        {
+            $unwind: '$reservedBy' // Unwind the reservedBy array
+        },
+        {
+            $project: {
+                label: 1,
+                reservedBy: {
+                    fullname: 1,
+                    phone: 1,
+                    email: 1,
+                    date: { $dateToString: { format: "%Y-%m-%d", date: '$reservedBy.date' } }, // Format the date field
+                    start: 1,
+                    end: 1
+                  }
+            }
+        }
+    ])
+    console.log(rooms)
+    req.resRooms = rooms
+    next()
 }

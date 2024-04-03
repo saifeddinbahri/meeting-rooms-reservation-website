@@ -34,6 +34,24 @@ const RoomSchema = new Schema({
     reservedBy: [ReservedBy]
 })
 
+RoomSchema.pre('findOneAndUpdate', async function (next) {
+    const update = this.getUpdate();
+    const newReservation = update.$push && update.$push.reservedBy;
+    const docToUpdate = await this.model.findOne(this.getQuery());
+    const lastReservationIndex = docToUpdate.reservedBy.length-1
+    if (newReservation && newReservation.date && lastReservationIndex >= 0) {
+        const lastReservation = docToUpdate.reservedBy[lastReservationIndex]
+        
+        if (
+            newReservation.date === lastReservation.date.toISOString().slice(0, 10) &&
+            newReservation.start < lastReservation.end 
+        ) {
+            return next(new Error('New reservation start time must be after the last reservation end time for the same date.'))
+        }
+    }
+
+    next()
+});
 
 
 module.exports = mongoose.model('Room', RoomSchema)
