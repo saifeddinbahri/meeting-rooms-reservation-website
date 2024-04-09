@@ -21,5 +21,16 @@ exports.reservations = (req, res) => {
 }
 
 exports.calendar = (req, res) => {
-    res.render('calendar')
+    const uid = req.uid
+    const room = req.room
+    const reservations = room.reservedBy.map((e) => {
+        return {
+            isUser: e.user.equals(uid),
+            date: e.date.toISOString().slice(0, 10),
+            start: e.start,
+            end: e.end
+        }
+    } )
+    console.log(reservations)
+    res.render('calendar', {data:reservations})
 }

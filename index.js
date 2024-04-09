@@ -39,7 +39,7 @@ app.get('/rooms', authMiddleware, roomController.consult, viewController.rooms)
 app.get('/sign-up', viewController.inscription)
 app.get('/book/:id', authMiddleware, viewController.book)
 app.get('/my-reservations', authMiddleware, roomController.findReservations, viewController.reservations)
-app.get('/calendar/:id', authMiddleware, viewController.calendar)
+app.get('/calendar/:id', authMiddleware, roomController.findRoom, viewController.calendar)
 
 // Admin views
 app.get('/add-room',adminViewController.addRoom)
