@@ -99,8 +99,12 @@
             }
 
             if(reservations.findIndex(
-                checkReservationExist(day, month, year)) !== -1) {
+                checkUserReservationExist(day, month, year)) !== -1) {
                 dayElement.classList.add('bg-green-200', 'text-green-800')
+            }
+
+            if(reservations.reduce(checkRservationExist(day, month, year))){
+                dayElement.classList.add('bg-orange-200', 'text-orange-800')
             }
             
             dayElement.addEventListener('click', () => {
@@ -117,14 +121,24 @@
             calendarElement.appendChild(dayElement);
         }
     }
-    //function checks if the user reserved a room in a specific date
-    function checkReservationExist(currDay,currMonth,year){
+    //function checks if the user reserved the room in a specific date
+    function checkUserReservationExist(currDay, currMonth, year){
         const month = String(currMonth+1).padStart(2, '0')
         const day = String(currDay).padStart(2, '0')
         const fulldate = `${year}-${month}-${day}`
         return function(e) {
             return fulldate === e.date && e.isUser;
         } 
+    }
+
+    // checks if there is a reservation in a specific date that does not include the user
+    function checkRservationExist(currDay, currMonth, year) {
+        const month = String(currMonth+1).padStart(2, '0')
+        const day = String(currDay).padStart(2, '0')
+        const fulldate = `${year}-${month}-${day}`
+        return (exist, curr, defaultValue = true) => {
+            return curr.date === fulldate && !curr.isUser
+        }
     }
     // Initialize the calendar with the current month and year
     const data = '<%- JSON.stringify(data) %>'
