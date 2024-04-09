@@ -103,6 +103,16 @@
                 dayElement.classList.add('bg-green-200', 'text-green-800')
             }
             
+            dayElement.addEventListener('click', () => {
+            const day = parseInt(dayElement.innerText);
+            const selectedDate = new Date(currentYear, currentMonth, day);
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const formattedDate = selectedDate.toLocaleDateString(undefined, options);
+            const options2 = { year: 'numeric', month: '2-digit', day: '2-digit' };
+            const month = String(currentMonth+1).padStart(2, '0')
+            const stringDay = String(day).padStart(2, '0')
+            showModal(formattedDate, `${currentYear}-${month}-${stringDay}`);
+        });
     
             calendarElement.appendChild(dayElement);
         }
@@ -152,6 +162,7 @@
     }
     // Function to show the modal with the selected date
     function showModal(formattedDate, isoDate) {
+    console.log('modal is working ')
         const selectedDayReservations = reservations.filter(filtedDate(isoDate))
         const modal = document.getElementById('myModal');
         const modalDateElement = document.getElementById('modalDate');
@@ -182,7 +193,7 @@
     }
     
     // Event listener for date click events
-    const dayElements = document.querySelectorAll('.cursor-pointer');
+   /* const dayElements = document.querySelectorAll('.cursor-pointer');
     dayElements.forEach(dayElement => {
         dayElement.addEventListener('click', () => {
             const day = parseInt(dayElement.innerText);
@@ -194,7 +205,7 @@
             const stringDay = String(day).padStart(2, '0')
             showModal(formattedDate, `${currentYear}-${month}-${stringDay}`);
         });
-    });
+    });*/
     
     // Event listener for closing the modal
     document.getElementById('closeModal').addEventListener('click', () => {

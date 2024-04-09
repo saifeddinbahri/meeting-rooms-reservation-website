@@ -31,6 +31,5 @@ exports.calendar = (req, res) => {
             end: e.end
         }
     } )
-    console.log(reservations)
     res.render('calendar', {data:reservations})
 }
