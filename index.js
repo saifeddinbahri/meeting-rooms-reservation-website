@@ -33,6 +33,9 @@ app.use('/auth', loginRouter)
 app.use('/admin',adminRouter)
 app.use('/user', authMiddleware, userRouter)
 
+//delete reservation route
+app.post('/delete-reservation', authMiddleware, roomController.deleteReservation)
+
 // views
 app.get('/', viewController.login)
 app.get('/rooms', authMiddleware, roomController.consult, viewController.rooms)

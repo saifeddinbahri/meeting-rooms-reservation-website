@@ -60,7 +60,7 @@
               </td>
               <td class="px-6 py-4">
                 <div class="flex  gap-4">
-                  <a x-data="{ tooltip: 'Delete' }" href="#">
+                  <a x-data="{ tooltip: 'Delete' }" href="#" onclick="deleteReservation('<%= room._id %>', '<%= room.reservedBy._id %>')">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -101,5 +101,28 @@
           </tbody>
         </table>
       </div>
+
+      <script>
+        async function deleteReservation(roomId, reservationId) {
+          try {
+            const response = await fetch('/delete-reservation', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ roomId, reservationId }),
+            });
+            
+            const data = await response.json()
+            if (data.redirectTo){
+                window.location.href = data.redirectTo
+            }
+          } catch (error) {
+            console.error('Error:', error);
+          }
+        }
+        
+
+      </script>
 </body>
 </html>

@@ -81,7 +81,6 @@ exports.findRoom = async (req, res, next) => {
 exports.findReservations = async (req, res, next) => {
     const { Types: { ObjectId } } = require('mongoose');
     const userId = req.uid
-    console.log(userId)
     const rooms = await roomSchema.aggregate([
         {
             $match: { 'reservedBy.user': new ObjectId(userId) } 
@@ -104,7 +103,9 @@ exports.findReservations = async (req, res, next) => {
         {
             $project: {
                 label: 1,
+                _id:1,
                 reservedBy: {
+                    _id:1,
                     fullname: 1,
                     phone: 1,
                     email: 1,
@@ -115,7 +116,21 @@ exports.findReservations = async (req, res, next) => {
             }
         }
     ])
-    console.log(rooms)
     req.resRooms = rooms
     next()
+}
+
+exports.deleteReservation = async (req, res) => {
+    try {
+        const { roomId, reservationId } = req.body 
+        const room = await roomSchema.findByIdAndUpdate(
+            roomId,
+            { $pull: { reservedBy: { _id: reservationId } } },
+            { new: true },
+          );
+          console.log(room)
+        res.json({redirectTo:'/my-reservations'})
+    } catch(e) {
+        console.log(e)
+    }
 }
