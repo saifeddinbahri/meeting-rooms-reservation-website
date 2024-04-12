@@ -1,4 +1,5 @@
 const roomSchema = require('../models/Room')
+const { Types: { ObjectId } } = require('mongoose');
 
 exports.addRoom = async (req, res) => {
     const { label, address, capacity, mic, vid, bigscreen, vidconf, table, chair } = req.body 
@@ -79,7 +80,6 @@ exports.findRoom = async (req, res, next) => {
 }
 
 exports.findReservations = async (req, res, next) => {
-    const { Types: { ObjectId } } = require('mongoose');
     const userId = req.uid
     const rooms = await roomSchema.aggregate([
         {
@@ -98,7 +98,7 @@ exports.findReservations = async (req, res, next) => {
             
         },
         {
-            $unwind: '$reservedBy' // Unwind the reservedBy array
+            $unwind: '$reservedBy' 
         },
         {
             $project: {
@@ -133,4 +133,59 @@ exports.deleteReservation = async (req, res) => {
     } catch(e) {
         console.log(e)
     }
+}
+
+exports.findReservation = async (req, res, next) => {
+    const { room, reservation } = req.params
+    try {
+        const data = await roomSchema.aggregate([
+            { $match: { _id: new ObjectId(room) } },
+            {
+                $project: {
+                    reservedBy: {
+                        $filter: {
+                            input: "$reservedBy",
+                            as: "reserved",
+                            cond: { $eq: ["$$reserved._id", new ObjectId(reservation)] }
+                        }
+                    }
+                }
+            }
+        ])
+        req.reservation = data[0].reservedBy[0]
+        next()
+    } catch(e) {
+        res.send('failed to load page')
+    }
+    
+}
+
+exports.updateReservation = async (req, res) => {
+  const { room, reservation } = req.params;
+  const updatedFields = req.body; // Assuming the request body contains the fields to update
+
+  try {
+    const roomInfo = await roomSchema.findOneAndUpdate(
+      { _id: room, 'reservedBy._id': reservation },
+      { 
+        $set: {
+            'reservedBy.$.fullname': updatedFields.fullname,
+            'reservedBy.$.phone': updatedFields.phone,
+            'reservedBy.$.date': updatedFields.date,
+            'reservedBy.$.start': updatedFields.start,
+            'reservedBy.$.end': updatedFields.end
+          }
+       },
+      { new: true }
+    );
+    console.log(roomInfo)
+    if (!roomInfo) {
+      return res.status(404).json({ error: 'Room not found or reservation not found in the room.' });
+    }
+
+    return res.json({redirectTo:'/my-reservations'})
+  } catch (error) {
+    console.error('Error:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
 }

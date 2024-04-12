@@ -31,5 +31,9 @@ exports.calendar = (req, res) => {
             end: e.end
         }
     } )
-    res.render('calendar', {data:reservations})
+    res.render('calendar', { data: reservations })
+}
+
+exports.modifyReservation = (req, res) => {
+    res.render('modify-reservation', { data: { reser: req.reservation, params: req.params } })
 }

@@ -10,7 +10,6 @@ const ReservedBy = new Schema({
     },
     fullname:String,
     phone: Number,
-    email:String,
     date: Date,
     start: Number,
     end: Number

@@ -28,22 +28,22 @@
                     <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">
                         Full Name
                     </label>
-                    <input type="text" name="name" id="name" placeholder="Full Name"
+                    <input type="text" name="name" id="name" placeholder="Full Name" value="<%= data.reser.fullname %>"
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
                 <div class="mb-5">
                     <label for="phone" class="mb-3 block text-base font-medium text-[#07074D]">
                         Phone Number
                     </label>
-                    <input type="text" name="phone" id="phone" placeholder="Enter your phone number"
+                    <input type="text" name="phone" id="phone" placeholder="Enter your phone number" value="<%= data.reser.phone %>"
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
-                <div class="w-full  ">
+                <div class="w-full">
                     <div class="mb-5">
                         <label for="date" class="mb-3 block text-base font-medium text-[#07074D]">
                             Date
                         </label>
-                        <input type="date" name="date" id="date"
+                        <input type="date" name="date" id="date" value="<%= data.reser.date.toISOString().slice(0, 10) %>"
                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                             <label for="start_time" class="mb-3 block text-base font-medium text-[#07074D]">
                                 Start time
                             </label>
-                            <input type="number" name="start_time" id="start_time" min="8" max="18"
+                            <input type="number" name="start_time" id="start_time" min="8" max="18" value="<%= data.reser.start %>"
                                 class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                         </div>
                     </div>
@@ -62,24 +62,20 @@
                             <label for="end_time" class="mb-3 block text-base font-medium text-[#07074D]">
                                 End time
                             </label>
-                            <input type="number" name="end_time" id="end_time" min="9" max="18"
+                            <input type="number" name="end_time" id="end_time" min="9" max="18" value="<%= data.reser.end %>"
                                 class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                         </div>
                     </div>
                 </div>
-    
-                
-    
                 <div>
                     <button
                         class="hover:shadow-form w-full rounded-md bg-slate-900 hover:bg-slate-700 py-3 px-8 text-center text-base font-semibold text-white outline-none">
-                        Book Appointment
+                        Update Appointment
                     </button>
                 </div>
             </form>
         </div>
     </div>
-   
 </body>
 <script>
     
@@ -95,28 +91,28 @@
         const startTime = document.getElementById('start_time').value
         const endTime = document.getElementById('end_time').value
 
-        const currentDate = new Date()
+        const currentDate = new Date(new Date().toISOString)
         const selectedDate = new Date(date)
 
         const bookDuration = parseInt(endTime) - parseInt(startTime)
-
+       
         if (fullname.trim().length < 3) return
         if (phone.length < 8 && !phoneRegex.test(phone)) return
+        console.log(selectedDate)
         if (selectedDate < currentDate) return
         if (bookDuration < 1) return 
         
-       const formData = {
-        fullname: fullname,
-        phone: phone,
-        date: date,
-        startTime: startTime,
-        endTime: endTime
-       }
+        const formData = {
+         fullname: fullname,
+         phone: phone,
+         date: date,
+         start: startTime,
+         end: endTime
+        }
 
-       console.log(formData)
-
+console.log('/update-reservation/<%= data.params.room %>-<%= data.params.reservation %>')
        try {
-         const response = await fetch('/user/book-room/<%= data %>', {
+         const response = await fetch('/update-reservation/<%= data.params.room %>-<%= data.params.reservation %>', {
             method: 'POST',
             headers:{
              'Content-Type': 'application/json'
