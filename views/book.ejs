@@ -97,11 +97,13 @@
 
         const currentDate = new Date()
         const selectedDate = new Date(date)
-
+        currentDate.setHours(0, 0, 0, 0);
+        selectedDate.setHours(0, 0, 0, 0);
         const bookDuration = parseInt(endTime) - parseInt(startTime)
 
         if (fullname.trim().length < 3) return
         if (phone.length < 8 && !phoneRegex.test(phone)) return
+        console.log(selectedDate < currentDate)
         if (selectedDate < currentDate) return
         if (bookDuration < 1) return 
         

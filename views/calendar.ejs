@@ -102,8 +102,8 @@
                 checkUserReservationExist(day, month, year)) !== -1) {
                 dayElement.classList.add('bg-green-200', 'text-green-800')
             }
-
-            if(reservations.reduce(checkRservationExist(day, month, year))){
+            
+            if(reservations.reduce(checkRservationExist(day, month, year), false)){
                 dayElement.classList.add('bg-orange-200', 'text-orange-800')
             }
             
@@ -136,14 +136,13 @@
         const month = String(currMonth+1).padStart(2, '0')
         const day = String(currDay).padStart(2, '0')
         const fulldate = `${year}-${month}-${day}`
-        return (exist, curr, defaultValue = true) => {
+        return (exist, curr) => {
             return curr.date === fulldate && !curr.isUser
         }
     }
     // Initialize the calendar with the current month and year
     const data = '<%- JSON.stringify(data) %>'
     const reservations = JSON.parse(data)
-    console.log( reservations)
     const currentDate = new Date();
     let currentYear = currentDate.getFullYear();
     let currentMonth = currentDate.getMonth();
