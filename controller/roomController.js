@@ -167,6 +167,20 @@ exports.deleteReservation = async (req, res) => {
     }
 }
 
+exports.adminDeleteReservation = async (req, res) => {
+    try {
+        const { roomId, reservationId } = req.body 
+        const room = await roomSchema.findByIdAndUpdate(
+            roomId,
+            { $pull: { reservedBy: { _id: reservationId } } },
+            { new: true },
+          );
+        res.json({redirectTo:`/all-reservations/${roomId}`})
+    } catch(e) {
+        console.log(e)
+    }
+}
+
 exports.findReservation = async (req, res, next) => {
     const { room, reservation } = req.params
     try {

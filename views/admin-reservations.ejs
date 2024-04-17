@@ -110,7 +110,7 @@
       <script>
         async function deleteReservation(roomId, reservationId) {
           try {
-            const response = await fetch('/delete-reservation', {
+            const response = await fetch('/admin-delete-reservation', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'

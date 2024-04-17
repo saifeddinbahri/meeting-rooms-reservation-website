@@ -37,7 +37,7 @@ app.use('/user', authMiddleware, userRouter)
 app.post('/delete-reservation', authMiddleware, roomController.deleteReservation)
 app.post('/update-reservation/:room-:reservation', authMiddleware, roomController.updateReservation)
 app.post('/update-admin-reservation/:room-:reservation', roomController.adminUpdateReservation)
-
+app.post('/admin-delete-reservation', roomController.adminDeleteReservation)
 // views
 app.get('/', viewController.login)
 app.get('/rooms', authMiddleware, roomController.consult, viewController.rooms)
