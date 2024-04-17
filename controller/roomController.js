@@ -120,6 +120,38 @@ exports.findReservations = async (req, res, next) => {
     next()
 }
 
+exports.findAllReservations = async (req, res, next) => {
+    try {
+        const rooms = await roomSchema.aggregate([
+            {
+                $match: {_id: new ObjectId(req.params.roomId)}
+            },
+            {
+                $unwind: '$reservedBy' // Unwind the reservedBy array
+            },
+            {
+                $project: {
+                    label: 1,
+                    _id: 1,
+                    reservedBy: {
+                        _id: 1,
+                        fullname: 1,
+                        phone: 1,
+                        email: 1,
+                        date: { $dateToString: { format: "%Y-%m-%d", date: '$reservedBy.date' } }, // Format the date field
+                        start: 1,
+                        end: 1
+                    }
+                }
+            }
+        ]);
+        req.reser = rooms;
+        next();
+    } catch (error) {
+        res.send('failed to load page')
+    }
+};
+
 exports.deleteReservation = async (req, res) => {
     try {
         const { roomId, reservationId } = req.body 
@@ -189,3 +221,33 @@ exports.updateReservation = async (req, res) => {
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+
+exports.adminUpdateReservation = async (req, res) => {
+    const { room, reservation } = req.params;
+    const updatedFields = req.body; // Assuming the request body contains the fields to update
+  
+    try {
+      const roomInfo = await roomSchema.findOneAndUpdate(
+        { _id: room, 'reservedBy._id': reservation },
+        { 
+          $set: {
+              'reservedBy.$.fullname': updatedFields.fullname,
+              'reservedBy.$.phone': updatedFields.phone,
+              'reservedBy.$.date': updatedFields.date,
+              'reservedBy.$.start': updatedFields.start,
+              'reservedBy.$.end': updatedFields.end
+            }
+         },
+        { new: true }
+      );
+      console.log(roomInfo)
+      if (!roomInfo) {
+        return res.status(404).json({ error: 'Room not found or reservation not found in the room.' });
+      }
+  
+      return res.json({redirectTo:`/all-reservations/${room}`})
+    } catch (error) {
+      console.error('Error:', error);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }

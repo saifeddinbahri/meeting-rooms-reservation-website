@@ -36,6 +36,8 @@ app.use('/user', authMiddleware, userRouter)
 //manage reservation route
 app.post('/delete-reservation', authMiddleware, roomController.deleteReservation)
 app.post('/update-reservation/:room-:reservation', authMiddleware, roomController.updateReservation)
+app.post('/update-admin-reservation/:room-:reservation', roomController.adminUpdateReservation)
+
 // views
 app.get('/', viewController.login)
 app.get('/rooms', authMiddleware, roomController.consult, viewController.rooms)
@@ -49,7 +51,8 @@ app.get('/modify-reservation/:room-:reservation', authMiddleware, roomController
 app.get('/add-room',adminViewController.addRoom)
 app.get('/consult-rooms', roomController.consult, adminViewController.consultRoom)
 app.get('/modify-room/:id', roomController.findRoom, adminViewController.modifyRoom)
-
+app.get('/all-reservations/:roomId', roomController.findAllReservations, adminViewController.reservations)
+app.get('/admin-update-reservation/:room-:reservation', roomController.findReservation, adminViewController.modifyReservation)
 
 
 
