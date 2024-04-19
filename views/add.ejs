@@ -13,7 +13,7 @@
         <a class="text-lg font-medium text-slate-600 p-2 hover:bg-slate-700/10 hover:rounded-lg" href="/rooms">
             Meeting rooms
         </a>
-        <a class="text-lg font-medium text-slate-600 border-l-2 border-slate-700/20 pl-[1.25rem] hover:text-red-600 " href="#">
+        <a onclick="logout()" class="text-lg font-medium text-slate-600 border-l-2 border-slate-700/20 pl-[1.25rem] hover:text-red-600 " href="#">
             Logout
         </a>
     </div>
@@ -146,5 +146,6 @@ form.addEventListener('submit', async (e) => {
   }
 });
     </script>
+    <script src="/js/global.js"></script>
 </body>
 </html>

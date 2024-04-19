@@ -22,6 +22,7 @@ connectDB()
 
 // middleware
 const authMiddleware = require('./middleware/auth')
+const checkRole = require('./middleware/role')
 
 // importing routes
 const loginRouter = require('./routes/auth')
@@ -30,14 +31,14 @@ const userRouter = require('./routes/user')
 
 // using Routes
 app.use('/auth', loginRouter)
-app.use('/admin',adminRouter)
+app.use('/admin', authMiddleware, adminRouter)
 app.use('/user', authMiddleware, userRouter)
 
 //manage reservation route
 app.post('/delete-reservation', authMiddleware, roomController.deleteReservation)
 app.post('/update-reservation/:room-:reservation', authMiddleware, roomController.updateReservation)
-app.post('/update-admin-reservation/:room-:reservation', roomController.adminUpdateReservation)
-app.post('/admin-delete-reservation', roomController.adminDeleteReservation)
+app.post('/update-admin-reservation/:room-:reservation', authMiddleware, roomController.adminUpdateReservation)
+app.post('/admin-delete-reservation', authMiddleware, roomController.adminDeleteReservation)
 // views
 app.get('/', viewController.login)
 app.get('/rooms', authMiddleware, roomController.consult, viewController.rooms)
@@ -48,11 +49,11 @@ app.get('/calendar/:id', authMiddleware, roomController.findRoom, viewController
 app.get('/modify-reservation/:room-:reservation', authMiddleware, roomController.findReservation, viewController.modifyReservation)
 
 // Admin views
-app.get('/add-room',adminViewController.addRoom)
-app.get('/consult-rooms', roomController.consult, adminViewController.consultRoom)
-app.get('/modify-room/:id', roomController.findRoom, adminViewController.modifyRoom)
-app.get('/all-reservations/:roomId', roomController.findAllReservations, adminViewController.reservations)
-app.get('/admin-update-reservation/:room-:reservation', roomController.findReservation, adminViewController.modifyReservation)
+app.get('/add-room', authMiddleware, checkRole, adminViewController.addRoom)
+app.get('/consult-rooms', authMiddleware, checkRole, roomController.consult, adminViewController.consultRoom)
+app.get('/modify-room/:id', authMiddleware, checkRole, roomController.findRoom, adminViewController.modifyRoom)
+app.get('/all-reservations/:roomId', authMiddleware, checkRole, roomController.findAllReservations, adminViewController.reservations)
+app.get('/admin-update-reservation/:room-:reservation', authMiddleware, checkRole, roomController.findReservation, adminViewController.modifyReservation)
 
 
 

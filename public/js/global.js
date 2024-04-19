@@ -31,3 +31,18 @@ function submitForm(event, inputIds, url) {
       })
       .catch(error => console.error('Error:', error));
   }
+
+  async function logOut() {
+    try {
+      const response = await fetch('/auth/logout', {
+        method: 'POST',
+      });
+      
+      data = await response.json()
+      if (data.redirectTo){
+          window.location.href = data.redirectTo
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
