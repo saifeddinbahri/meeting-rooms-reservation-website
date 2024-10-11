@@ -2,7 +2,7 @@
 
 ## Description
 
-This project was created for learning and practicing Express.js.
+This project provides a comprehensive solution for reserving meeting rooms. Users can book rooms for specific time slots and customize their reservations by selecting the necessary equipment. Additionally, each room features a calendar view, allowing users to easily check the availability and see all reserved dates at a glance.
 
 ## Setup
 
